@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Test 1 (Starter) | AI-901 Azure AI Fundamentals Exam Simulator | K21 Academy</title>
+<style>
+  :root{
+    --ms-navy:#104581;
+    --ms-blue:#0078D4;
+    --ms-blue-light:#3CCBF4;
+    --ms-bg:#F3F9FD;
+    --ms-card:#FFFFFF;
+    --ms-border:#D7E7F5;
+    --ms-text:#152A3C;
+    --ms-muted:#5B7186;
+    --ms-green:#1C9E5A;
+    --ms-red:#D13438;
+    --ms-amber:#C77700;
+    --shadow:0 4px 16px rgba(16,69,129,0.08);
+    --shadow-lg:0 12px 32px rgba(16,69,129,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--ms-bg);
+    color:var(--ms-text);
+    line-height:1.5;
+    min-height:100vh;
+  }
+  .hidden{display:none !important;}
+  a{color:var(--ms-blue);}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ---------- Top brand bar ---------- */
+  .brandbar{
+    background:linear-gradient(90deg,var(--ms-navy),var(--ms-blue));
+    color:#fff;
+    padding:14px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:var(--shadow);
+  }
+  .brandbar .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;}
+  .brandbar .logo .badge{
+    background:rgba(255,255,255,0.15);
+    padding:4px 10px;
+    border-radius:6px;
+    font-size:12px;
+    letter-spacing:.4px;
+  }
+  .brandbar .exam-tag{font-size:13px;opacity:.9;}
+
+  /* ---------- Intro screen ---------- */
+  .wrap{max-width:1000px;margin:0 auto;padding:36px 20px 60px;}
+  .back-home{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:13px;font-weight:600;color:var(--ms-blue);
+    text-decoration:none;margin-bottom:16px;
+  }
+  .back-home:hover{text-decoration:underline;}
+  .pill{
+    display:inline-block;
+    background:#E8F3FC;
+    color:var(--ms-blue);
+    font-size:12px;
+    font-weight:600;
+    padding:6px 14px;
+    border-radius:999px;
+    letter-spacing:.3px;
+    margin-bottom:14px;
+    border:1px solid var(--ms-border);
+  }
+  h1{font-size:32px;margin:0 0 8px;color:var(--ms-navy);}
+  h1 .accent{color:var(--ms-blue);}
+  .subtitle{color:var(--ms-muted);font-size:15px;max-width:720px;margin:0 0 26px;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
+  .stat-card{
+    background:var(--ms-card);
+    border:1px solid var(--ms-border);
+    border-radius:10px;
+    padding:14px 16px;
+    box-shadow:var(--shadow);
+  }
+  .stat-card .label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--ms-muted);font-weight:600;}
+  .stat-card .value{font-size:18px;font-weight:700;color:var(--ms-navy);margin-top:4px;}
+
+  .domain-card{
+    background:var(--ms-card);
+    border:1px solid var(--ms-border);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:20px 22px;
+    margin-bottom:22px;
+  }
+  .domain-card h2{margin:0 0 14px;font-size:16px;color:var(--ms-navy);}
+  table.domain-table{width:100%;border-collapse:collapse;font-size:14px;}
+  table.domain-table th{
+    text-align:left;color:var(--ms-muted);font-size:11px;text-transform:uppercase;
+    letter-spacing:.4px;padding:6px 8px;border-bottom:2px solid var(--ms-border);
+  }
+  table.domain-table td{padding:10px 8px;border-bottom:1px solid var(--ms-border);}
+  table.domain-table td.weight{font-weight:700;color:var(--ms-blue);text-align:right;}
+  table.domain-table tr:last-child td{border-bottom:none;}
+
+  .rules-card{
+    background:#FFF8E9;
+    border:1px solid #F0D9A0;
+    border-radius:10px;
+    padding:20px 22px;
+    margin-bottom:26px;
+  }
+  .rules-card h2{margin:0 0 12px;font-size:16px;color:#8A5A00;display:flex;align-items:center;gap:8px;}
+  .rules-card ul{margin:0;padding-left:20px;}
+  .rules-card li{margin-bottom:8px;font-size:14px;color:#5B4400;}
+
+  .btn{
+    border:none;border-radius:8px;padding:13px 26px;font-size:15px;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;transition:transform .05s ease,box-shadow .15s ease;
+    text-decoration:none;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:linear-gradient(90deg,var(--ms-blue),var(--ms-blue-light));color:#fff;box-shadow:0 6px 18px rgba(0,120,212,0.35);}
+  .btn-primary:hover{box-shadow:0 8px 22px rgba(0,120,212,0.45);}
+  .btn-outline{background:#fff;color:var(--ms-blue);border:1.5px solid var(--ms-blue);}
+  .btn-outline:hover{background:#EAF4FD;}
+  .btn-ghost{background:transparent;color:var(--ms-muted);border:1.5px solid var(--ms-border);}
+  .btn-danger{background:var(--ms-red);color:#fff;}
+  .btn-full{width:100%;justify-content:center;}
+  .btn-lg{padding:16px 30px;font-size:16px;}
+
+  .footer-note{text-align:center;color:var(--ms-muted);font-size:12px;margin-top:30px;}
+
+  /* ---------- Exam screen ---------- */
+  #examScreen{display:none;}
+  .exam-header{
+    background:var(--ms-navy);
+    color:#fff;
+    padding:12px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:10px;
+    position:sticky;top:0;z-index:20;
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+  }
+  .exam-header .title{font-weight:700;font-size:15px;}
+  .exam-header .title small{display:block;font-weight:400;font-size:11px;opacity:.75;}
+  .exam-stats{display:flex;align-items:center;gap:18px;font-size:13px;}
+  .exam-stats .stat b{font-size:14px;}
+  .timer-box{
+    background:rgba(255,255,255,0.12);
+    padding:7px 16px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:.5px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .timer-box.low{background:var(--ms-red);animation:pulse 1s infinite;}
+  @keyframes pulse{0%{opacity:1;}50%{opacity:.6;}100%{opacity:1;}}
+
+  .exam-body{
+    max-width:1200px;margin:0 auto;padding:22px 20px 80px;
+    display:grid;grid-template-columns:1fr 320px;gap:20px;
+  }
+  .question-panel{
+    background:var(--ms-card);
+    border:1px solid var(--ms-border);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:26px 28px;
+    min-height:420px;
+    display:flex;flex-direction:column;
+  }
+  .qtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+  .qnum-badge{
+    background:var(--ms-navy);color:#fff;font-weight:700;font-size:13px;
+    padding:6px 14px;border-radius:8px;
+  }
+  .domain-tag{
+    background:#EAF4FD;color:var(--ms-blue);font-size:12px;font-weight:600;
+    padding:5px 12px;border-radius:999px;border:1px solid var(--ms-border);
+  }
+  .multi-tag{
+    background:#FFF1DB;color:#8A5A00;font-size:11px;font-weight:700;
+    padding:4px 10px;border-radius:999px;margin-left:8px;
+  }
+  .qtext{font-size:17px;font-weight:600;color:var(--ms-text);margin-bottom:22px;}
+  .options{display:flex;flex-direction:column;gap:12px;flex:1;}
+  .option{
+    display:flex;align-items:flex-start;gap:12px;
+    border:1.5px solid var(--ms-border);border-radius:10px;
+    padding:13px 16px;cursor:pointer;transition:all .12s ease;
+    background:#fff;
+  }
+  .option:hover{border-color:var(--ms-blue-light);background:#F7FBFE;}
+  .option.selected{border-color:var(--ms-blue);background:#EAF4FD;}
+  .option .opt-letter{
+    width:26px;height:26px;border-radius:50%;background:var(--ms-border);color:var(--ms-navy);
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;
+  }
+  .option.selected .opt-letter{background:var(--ms-blue);color:#fff;}
+  .option .opt-text{font-size:14.5px;padding-top:3px;}
+
+  .qbottom{display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:10px;}
+  .flag-btn{
+    background:#fff;border:1.5px solid #F0C267;color:#8A5A00;
+    padding:10px 18px;border-radius:8px;font-weight:600;font-size:13.5px;
+  }
+  .flag-btn.flagged{background:#FFEBB8;border-color:#E0A83A;}
+  .nav-buttons{display:flex;gap:10px;}
+
+  /* Sidebar */
+  .sidebar{display:flex;flex-direction:column;gap:16px;}
+  .side-card{
+    background:var(--ms-card);border:1px solid var(--ms-border);border-radius:12px;
+    box-shadow:var(--shadow);padding:18px 18px;
+  }
+  .side-card h3{margin:0 0 12px;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--ms-muted);}
+  .progress-row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;border-bottom:1px solid #EEF4FA;}
+  .progress-row:last-child{border-bottom:none;}
+  .progress-row .n{font-weight:700;}
+  .n.answered{color:var(--ms-green);}
+  .n.unanswered{color:var(--ms-muted);}
+  .n.flagged{color:var(--ms-amber);}
+
+  .navgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:12px;}
+  .navcell{
+    aspect-ratio:1/1;border-radius:6px;border:1.5px solid var(--ms-border);
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+    background:#fff;color:var(--ms-text);position:relative;
+  }
+  .navcell.current{background:var(--ms-navy);color:#fff;border-color:var(--ms-navy);}
+  .navcell.answered{background:#DFF3E6;border-color:#9FDDB6;color:#146C3A;}
+  .navcell.flagged{background:#FFEBB8;border-color:#E0A83A;color:#8A5A00;}
+  .navcell.flagged.answered{background:linear-gradient(135deg,#DFF3E6 50%,#FFEBB8 50%);}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--ms-muted);margin-top:6px;}
+  .legend span{display:flex;align-items:center;gap:5px;}
+  .legend .dot{width:11px;height:11px;border-radius:3px;display:inline-block;border:1.5px solid var(--ms-border);}
+  .dot.current{background:var(--ms-navy);border-color:var(--ms-navy);}
+  .dot.answered{background:#DFF3E6;border-color:#9FDDB6;}
+  .dot.flagged{background:#FFEBB8;border-color:#E0A83A;}
+  .dot.unanswered{background:#fff;}
+
+  /* Modals */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(16,42,60,0.55);
+    display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;
+  }
+  .modal{
+    background:#fff;border-radius:14px;padding:30px 30px;max-width:420px;width:100%;
+    box-shadow:var(--shadow-lg);text-align:center;
+  }
+  .modal .icon{font-size:38px;margin-bottom:10px;}
+  .modal h3{margin:0 0 10px;color:var(--ms-navy);font-size:19px;}
+  .modal p{color:var(--ms-muted);font-size:14px;margin-bottom:22px;}
+  .modal-actions{display:flex;gap:12px;justify-content:center;}
+
+  /* Results screen */
+  #resultsScreen{display:none;}
+  .results-hero{
+    background:linear-gradient(135deg,var(--ms-navy),var(--ms-blue));
+    color:#fff;border-radius:14px;padding:34px 30px;text-align:center;margin-bottom:24px;
+    box-shadow:var(--shadow-lg);
+  }
+  .results-hero .score{font-size:52px;font-weight:800;margin:6px 0;}
+  .results-hero .pass-badge{
+    display:inline-block;padding:6px 20px;border-radius:999px;font-weight:700;font-size:14px;margin-top:8px;
+  }
+  .pass-badge.pass{background:#1C9E5A;}
+  .pass-badge.fail{background:#D13438;}
+  .results-subgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
+  .results-subgrid .box{background:rgba(255,255,255,0.12);border-radius:10px;padding:12px;}
+  .results-subgrid .box .v{font-size:20px;font-weight:700;}
+  .results-subgrid .box .l{font-size:11px;opacity:.85;text-transform:uppercase;letter-spacing:.4px;}
+
+  .domain-breakdown{background:#fff;border:1px solid var(--ms-border);border-radius:12px;padding:22px 24px;margin-bottom:22px;box-shadow:var(--shadow);}
+  .domain-breakdown h2{margin:0 0 16px;font-size:16px;color:var(--ms-navy);}
+  .dbrow{margin-bottom:16px;}
+  .dbrow .dbtop{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;}
+  .dbrow .dbtop b{color:var(--ms-navy);}
+  .barbg{background:#EEF4FA;border-radius:999px;height:10px;overflow:hidden;}
+  .barfill{background:linear-gradient(90deg,var(--ms-blue),var(--ms-blue-light));height:100%;border-radius:999px;}
+
+  .results-actions{display:flex;gap:14px;justify-content:center;margin-bottom:10px;}
+
+  /* Review mode */
+  #reviewScreen{display:none;}
+  .review-item{
+    background:#fff;border:1px solid var(--ms-border);border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow);
+  }
+  .review-item .rtop{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+  .result-tag{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;}
+  .result-tag.correct{background:#DFF3E6;color:#146C3A;}
+  .result-tag.incorrect{background:#FBE1E2;color:#A31A1E;}
+  .review-item .rqtext{font-weight:600;font-size:15px;margin-bottom:14px;}
+  .review-option{
+    border:1.5px solid var(--ms-border);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:13.5px;
+    display:flex;gap:10px;align-items:flex-start;
+  }
+  .review-option .opt-letter{
+    width:22px;height:22px;border-radius:50%;background:var(--ms-border);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;
+  }
+  .review-option.correct-answer{border-color:#9FDDB6;background:#F1FBF4;}
+  .review-option.correct-answer .opt-letter{background:#1C9E5A;color:#fff;}
+  .review-option.user-wrong{border-color:#F3B4B6;background:#FDF3F3;}
+  .review-option.user-wrong .opt-letter{background:var(--ms-red);color:#fff;}
+  .review-explain{
+    margin-top:12px;background:#F7FBFE;border-left:3px solid var(--ms-blue);padding:12px 14px;border-radius:6px;
+    font-size:13.5px;color:var(--ms-text);
+  }
+  .review-explain b{color:var(--ms-navy);}
+  .review-back{display:flex;justify-content:center;gap:14px;margin:20px 0 40px;flex-wrap:wrap;}
+  .review-filterbar{display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+  .filter-chip{
+    border:1.5px solid var(--ms-border);background:#fff;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ms-muted);
+  }
+  .filter-chip.active{background:var(--ms-blue);border-color:var(--ms-blue);color:#fff;}
+
+  @media(max-width:840px){
+    .exam-body{grid-template-columns:1fr;}
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .results-subgrid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ INTRO SCREEN ============ -->
+<div id="introScreen">
+  <div class="brandbar">
+    <div class="logo"><span>K21 Academy</span><span class="badge">Azure Certification Practice Hub</span></div>
+    <div class="exam-tag">Azure AI Fundamentals Exam Simulator</div>
+  </div>
+  <div class="wrap">
+    <a href="index.html" class="back-home">← All Mock Tests</a>
+    <span class="pill">AI-901 Certification Exam Simulator · Mock Test 1 (Starter)</span>
+    <h1>Microsoft Certified: <span class="accent">Azure AI Fundamentals</span></h1>
+    <p class="subtitle">Practice for the AI-901 exam in a realistic exam environment with a timer, question navigator, and instant feedback after submission. Covers the refreshed AI-901 skills outline, including AI concepts, responsible AI, and implementing AI solutions with Microsoft Foundry.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="label">Questions</div><div class="value">50 Questions</div></div>
+      <div class="stat-card"><div class="label">Time Limit</div><div class="value">60 Minutes</div></div>
+      <div class="stat-card"><div class="label">Passing Score</div><div class="value">700 / 1000 (70%)</div></div>
+      <div class="stat-card"><div class="label">Question Types</div><div class="value">Single &amp; Multi-select</div></div>
+    </div>
+
+    <div class="domain-card">
+      <h2>AI-901 Domain Coverage</h2>
+      <table class="domain-table">
+        <tr><th>Domain</th><th>Topic</th><th style="text-align:right;">Weight</th></tr>
+        <tr><td>Domain 1</td><td>Identify AI concepts and capabilities</td><td class="weight">44%</td></tr>
+        <tr><td>Domain 2</td><td>Implement AI solutions by using Microsoft Foundry</td><td class="weight">56%</td></tr>
+      </table>
+    </div>
+
+    <div class="rules-card">
+      <h2>Exam Rules: Read Before Starting</h2>
+      <ul>
+        <li>Do <b>NOT</b> switch tabs or minimize the browser. Your exam will be paused and a warning issued.</li>
+        <li>3 tab-switch warnings will automatically end and submit your exam.</li>
+        <li>Multi-select questions require exactly 2 answers. Partial credit is not given.</li>
+        <li>You can flag questions for review and return to them before submitting.</li>
+        <li>Once submitted, answers cannot be changed.</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-primary btn-lg btn-full" onclick="startExam()">Start Exam Now</button>
+    <p class="footer-note">Practice questions are original and written to reflect the AI-901 skills outline. They are not real or leaked exam questions. © 2026 Azure AI Fundamentals Practice Sets</p>
+  </div>
+</div>
+
+<!-- ============ EXAM SCREEN ============ -->
+<div id="examScreen">
+  <div class="exam-header">
+    <div class="title">K21 Academy · AI-901 <small>Azure AI Fundamentals Exam Simulator · Mock Test 1 (Starter)</small></div>
+    <div class="exam-stats">
+      <div class="stat">Answered <b id="hdrAnswered">0/50</b></div>
+      <div class="stat">Flagged <b id="hdrFlagged">0</b></div>
+      <div class="timer-box" id="timerBox">⏱ <span id="timerText">60:00</span></div>
+    </div>
+  </div>
+
+  <div class="exam-body">
+    <div class="question-panel">
+      <div class="qtop">
+        <span class="qnum-badge" id="qNumBadge">Question 1 of 50</span>
+        <div>
+          <span class="domain-tag" id="qDomainTag">Domain</span>
+          <span class="multi-tag hidden" id="qMultiTag">Select 2</span>
+        </div>
+      </div>
+      <div class="qtext" id="qText">Question text</div>
+      <div class="options" id="qOptions"></div>
+      <div class="qbottom">
+        <button class="flag-btn" id="flagBtn" onclick="toggleFlag()">Flag for Review</button>
+        <div class="nav-buttons">
+          <button class="btn btn-ghost" id="prevBtn" onclick="prevQuestion()">← Prev</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="side-card">
+        <h3>Progress</h3>
+        <div class="progress-row"><span>Answered</span><span class="n answered" id="sideAnswered">0 / 50</span></div>
+        <div class="progress-row"><span>Unanswered</span><span class="n unanswered" id="sideUnanswered">50</span></div>
+        <div class="progress-row"><span>Flagged</span><span class="n flagged" id="sideFlagged">0</span></div>
+      </div>
+      <div class="side-card">
+        <h3>Question Navigator</h3>
+        <div class="navgrid" id="navGrid"></div>
+        <div class="legend">
+          <span><i class="dot current"></i>Current</span>
+          <span><i class="dot answered"></i>Answered</span>
+          <span><i class="dot flagged"></i>Flagged</span>
+          <span><i class="dot unanswered"></i>Unanswered</span>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full btn-lg" onclick="confirmSubmit()">Submit Exam →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ RESULTS SCREEN ============ -->
+<div id="resultsScreen">
+  <div class="brandbar">
+    <div class="logo"><span>K21 Academy</span><span class="badge">Azure Certification Practice Hub</span></div>
+    <div class="exam-tag">AI-901 Exam Results · Mock Test 1 (Starter)</div>
+  </div>
+  <div class="wrap">
+    <div class="results-hero">
+      <div style="font-size:14px;opacity:.85;">Your Score</div>
+      <div class="score" id="scaledScore">0 / 1000</div>
+      <div id="passBadge" class="pass-badge pass">PASS</div>
+      <div class="results-subgrid">
+        <div class="box"><div class="v" id="resCorrect">0</div><div class="l">Correct</div></div>
+        <div class="box"><div class="v" id="resIncorrect">0</div><div class="l">Incorrect</div></div>
+        <div class="box"><div class="v" id="resPercent">0%</div><div class="l">Percentage</div></div>
+      </div>
+    </div>
+
+    <div class="domain-breakdown">
+      <h2>Domain-wise Breakdown</h2>
+      <div id="domainBreakdownBody"></div>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn btn-outline btn-lg" onclick="retakeExam()">Retake Exam</button>
+      <button class="btn btn-primary btn-lg" onclick="openReview()">Review All Questions</button>
+      <a href="index.html" class="btn btn-ghost btn-lg">Back to Home</a>
+    </div>
+    <p class="footer-note">Passing score: 700/1000 (70%). Scores are simulated for practice purposes only and do not reflect an official Microsoft transcript.</p>
+  </div>
+</div>
+
+<!-- ============ REVIEW SCREEN ============ -->
+<div id="reviewScreen">
+  <div class="brandbar">
+    <div class="logo"><span>K21 Academy</span><span class="badge">Azure Certification Practice Hub</span></div>
+    <div class="exam-tag">AI-901 Review Mode · Mock Test 1 (Starter)</div>
+  </div>
+  <div class="wrap">
+    <div class="review-filterbar">
+      <button class="filter-chip active" data-filter="all" onclick="setReviewFilter('all')">All (50)</button>
+      <button class="filter-chip" data-filter="incorrect" onclick="setReviewFilter('incorrect')">Incorrect Only</button>
+      <button class="filter-chip" data-filter="flagged" onclick="setReviewFilter('flagged')">Flagged Only</button>
+    </div>
+    <div id="reviewList"></div>
+    <div class="review-back">
+      <button class="btn btn-outline btn-lg" onclick="backToResults()">← Back to Results</button>
+      <a href="index.html" class="btn btn-ghost btn-lg">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB SWITCH WARNING MODAL ============ -->
+<div id="tabWarningModal" class="modal-overlay hidden">
+  <div class="modal">
+    <h3>You Left the Exam!</h3>
+    <p id="tabWarningText">Switching tabs or minimizing the browser is not allowed during the exam. Warning <span id="warnCount">1</span> of 3.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="dismissTabWarning()">Return to Exam</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SUBMIT CONFIRM MODAL ============ -->
+<div id="submitConfirmModal" class="modal-overlay hidden">
+  <div class="modal">
+    <h3>Submit Exam?</h3>
+    <p id="submitConfirmText">You still have unanswered questions. Once submitted, answers cannot be changed. Are you sure you want to submit?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="cancelSubmit()">Cancel</button>
+      <button class="btn btn-danger" onclick="doSubmitExam()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<script id="questionsData" type="application/json">[{"id":"q001","domain":"Identify AI concepts and capabilities","sub":"Responsible AI","type":"single","question":"A retail company is building a model to approve or reject online credit applications. During testing, the team notices the model approves applications from one demographic group at a significantly higher rate than others, even when applicants have similar credit profiles. Which responsible AI principle is most directly relevant to this issue?","options":[{"id":"a","text":"Fairness"},{"id":"b","text":"Accountability"},{"id":"c","text":"Transparency"},{"id":"d","text":"Inclusiveness"}],"correct":["a"],"explanation":"Fairness is correct. Fairness addresses whether an AI system treats different groups equitably and avoids reinforcing bias, which matches the pattern described. Transparency concerns explainability and documentation, not equitable treatment. Accountability concerns human responsibility and governance over outcomes. Inclusiveness concerns designing systems that work for and empower a broad range of users, not equitable decision outcomes."},{"id":"q002","domain":"Identify AI concepts and capabilities","sub":"Responsible AI","type":"single","question":"A hospital is deploying an AI model to flag potential drug interactions before prescriptions are approved. Before going live, the team runs extensive testing across edge cases and rare conditions to confirm the model performs consistently under real clinical workloads. Which responsible AI principle are they primarily addressing?","options":[{"id":"a","text":"Fairness"},{"id":"b","text":"Reliability and safety"},{"id":"c","text":"Inclusiveness"},{"id":"d","text":"Privacy and security"}],"correct":["b"],"explanation":"Reliability and safety is correct, since it covers ensuring an AI system performs consistently and safely, including under rare or edge-case conditions, before it is trusted in high-stakes scenarios like healthcare. Privacy and security concerns protecting data. Inclusiveness concerns broad usability. Fairness concerns equitable treatment across groups, not consistency of performance."},{"id":"q003","domain":"Identify AI concepts and capabilities","sub":"Responsible AI","type":"single","question":"A financial services firm is building a chatbot that answers customer questions using account data. The engineering team encrypts data in transit and at rest, and restricts which employees can view the raw customer records used to train the model. Which responsible AI principle does this primarily reflect?","options":[{"id":"a","text":"Transparency"},{"id":"b","text":"Reliability and safety"},{"id":"c","text":"Privacy and security"},{"id":"d","text":"Accountability"}],"correct":["c"],"explanation":"Privacy and security is correct, since encrypting data and restricting access are direct controls for protecting sensitive information. Accountability concerns governance and responsibility for outcomes. Transparency concerns explaining how the system works. Reliability and safety concerns consistent, safe performance rather than data protection."},{"id":"q004","domain":"Identify AI concepts and capabilities","sub":"Responsible AI","type":"single","question":"A voice assistant is being redesigned so that it correctly recognizes speech from users with different accents, speech patterns, and disabilities. Which responsible AI principle is the team focusing on?","options":[{"id":"a","text":"Transparency"},{"id":"b","text":"Accountability"},{"id":"c","text":"Fairness"},{"id":"d","text":"Inclusiveness"}],"correct":["d"],"explanation":"Inclusiveness is correct, since it focuses on designing AI systems that bring benefit to and work well for people across a broad range of abilities, backgrounds, and needs. Fairness is about equitable outcomes rather than usability across diverse users. Transparency is about explainability. Accountability is about governance and responsibility."},{"id":"q005","domain":"Identify AI concepts and capabilities","sub":"Responsible AI","type":"single","question":"An organization publishes a document alongside its AI model that explains what the model was trained to do, its known limitations, and the scenarios where it should not be used. Which responsible AI principle does this document support?","options":[{"id":"a","text":"Transparency"},{"id":"b","text":"Reliability and safety"},{"id":"c","text":"Privacy and security"},{"id":"d","text":"Inclusiveness"}],"correct":["a"],"explanation":"Transparency is correct, since documenting a model's purpose, capabilities, and limitations helps users and stakeholders understand how and when the system should be used. Privacy and security concerns data protection. Reliability and safety concerns consistent performance. Inclusiveness concerns usability across diverse users."},{"id":"q006","domain":"Identify AI concepts and capabilities","sub":"Responsible AI","type":"single","question":"A company sets up a governance board that reviews high-impact AI decisions, ensures humans remain responsible for outcomes, and defines who is answerable if the AI system causes harm. Which responsible AI principle does this structure support?","options":[{"id":"a","text":"Fairness"},{"id":"b","text":"Accountability"},{"id":"c","text":"Inclusiveness"},{"id":"d","text":"Transparency"}],"correct":["b"],"explanation":"Accountability is correct, since it covers ensuring that people, not just the AI system, remain responsible for decisions and outcomes, including establishing governance and clear lines of responsibility. Fairness concerns equitable treatment. Inclusiveness concerns broad usability. Transparency concerns explainability of the system itself."},{"id":"q007","domain":"Identify AI concepts and capabilities","sub":"AI model components","type":"single","question":"A developer explains to a new team member that a generative AI model predicts the next word in a sequence based on patterns learned from massive amounts of training text, then repeats that prediction to build a complete response. Which concept is being described?","options":[{"id":"a","text":"Sentiment scoring"},{"id":"b","text":"Named entity recognition"},{"id":"c","text":"Token-by-token text prediction"},{"id":"d","text":"Object detection"}],"correct":["c"],"explanation":"Token-by-token text prediction is correct, since generative language models generate output by repeatedly predicting the most likely next token given the preceding context. Object detection locates objects in images. Sentiment scoring evaluates emotional tone. Named entity recognition extracts entities such as people or places, none of which describe how generative text is produced."},{"id":"q008","domain":"Identify AI concepts and capabilities","sub":"AI model components","type":"single","question":"A team needs a model that can accept both an image and a text question, then generate a text answer describing what is in the image. Which type of model should they select?","options":[{"id":"a","text":"A text-only summarization model"},{"id":"b","text":"A classic regression model"},{"id":"c","text":"A speech-to-text model"},{"id":"d","text":"A multimodal model"}],"correct":["d"],"explanation":"A multimodal model is correct, since it can accept multiple input types, such as an image and text, and generate a relevant response. A speech-to-text model only converts audio to text. A text-only summarization model cannot interpret images. A classic regression model predicts numeric values and does not process images or generate natural language answers."},{"id":"q009","domain":"Identify AI concepts and capabilities","sub":"AI model components","type":"single","question":"A startup wants to deploy a generative AI model without managing any underlying infrastructure, and only pay for the compute consumed per request. Which deployment approach best fits this need?","options":[{"id":"a","text":"A serverless, pay-as-you-go model deployment"},{"id":"b","text":"An on-premises GPU cluster"},{"id":"c","text":"A model that only runs in scheduled batch jobs once per week"},{"id":"d","text":"A self-hosted model on dedicated virtual machines they must patch and scale manually"}],"correct":["a"],"explanation":"A serverless, pay-as-you-go deployment is correct, since it removes the need to manage infrastructure and bills based on consumption. Self-hosted VMs and an on-premises GPU cluster both require the team to manage infrastructure directly. A weekly batch job would not support the on-demand, per-request usage the startup needs."},{"id":"q010","domain":"Identify AI concepts and capabilities","sub":"AI model components","type":"single","question":"A team is tuning a deployed generative AI model and wants its responses to be more focused and predictable, with less variation between runs for the same prompt. Which configuration parameter should they lower?","options":[{"id":"a","text":"Model version"},{"id":"b","text":"Temperature"},{"id":"c","text":"Max tokens"},{"id":"d","text":"Deployment region"}],"correct":["b"],"explanation":"Temperature is correct, since lowering it reduces randomness and produces more consistent, focused output for the same prompt. Max tokens controls response length, not variability. Model version and deployment region affect which model runs and where, not the randomness of its responses."},{"id":"q011","domain":"Identify AI concepts and capabilities","sub":"AI model components","type":"multi","question":"A company is choosing between a small, lightweight model and a large, general-purpose model for a customer support scenario. Which two factors should most influence this decision? (Select two.)","options":[{"id":"a","text":"The visual theme of the company's website"},{"id":"b","text":"The complexity of the tasks the model must handle"},{"id":"c","text":"The cost per request and expected latency"},{"id":"d","text":"The number of social media followers the company has"}],"correct":["b","c"],"explanation":"Cost/latency and task complexity are correct, since these directly affect whether a smaller, faster, cheaper model is sufficient or whether a larger model's broader capability is needed. The website's visual theme and the company's social media following have no bearing on model selection."},{"id":"q012","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A marketing team wants a tool that can draft multiple original variations of social media captions based on a short product description. Which type of AI workload best fits this need?","options":[{"id":"a","text":"Object detection"},{"id":"b","text":"Speech synthesis"},{"id":"c","text":"Anomaly detection"},{"id":"d","text":"Generative AI"}],"correct":["d"],"explanation":"Generative AI is correct, since it is designed to create new original content, such as text variations, based on a prompt. Object detection locates items in images. Speech synthesis converts text to audio. Anomaly detection identifies unusual patterns in data, none of which produce new written content."},{"id":"q013","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A company wants an AI solution that can independently plan a sequence of steps, call external tools such as a calendar API and an email API, and complete a multi-step task like scheduling a meeting and notifying attendees with minimal human intervention. Which type of AI workload is this?","options":[{"id":"a","text":"Agentic AI"},{"id":"b","text":"Image classification"},{"id":"c","text":"Speech recognition"},{"id":"d","text":"Key phrase extraction"}],"correct":["a"],"explanation":"Agentic AI is correct, since it describes a system that autonomously plans and executes multi-step tasks by invoking tools on its own. Key phrase extraction identifies important terms in text. Image classification categorizes images. Speech recognition converts audio to text, none of which involve autonomous multi-step tool use."},{"id":"q014","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A legal team wants to quickly identify the most important terms and topics discussed across thousands of long contracts, without reading every document in full. Which text analysis technique is most appropriate?","options":[{"id":"a","text":"Speech synthesis"},{"id":"b","text":"Object detection"},{"id":"c","text":"Key phrase extraction"},{"id":"d","text":"Image captioning"}],"correct":["c"],"explanation":"Key phrase extraction is correct, since it identifies the most important terms and topics in text without requiring a full manual read-through. Speech synthesis converts text to audio. Object detection and image captioning both operate on images, not text."},{"id":"q015","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A news aggregator wants to automatically identify and tag the names of people, organizations, and locations mentioned within articles. Which text analysis technique should it use?","options":[{"id":"a","text":"Sentiment analysis"},{"id":"b","text":"Speech-to-text"},{"id":"c","text":"Summarization"},{"id":"d","text":"Named entity recognition"}],"correct":["d"],"explanation":"Named entity recognition is correct, since it extracts and labels entities such as people, organizations, and locations from text. Sentiment analysis evaluates emotional tone. Summarization condenses text into a shorter form. Speech-to-text converts audio into text, none of which identify named entities."},{"id":"q016","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"An internal knowledge base contains lengthy support tickets, and the support team wants a short paragraph automatically generated that captures the core issue and resolution for each ticket. Which text analysis technique fits this need?","options":[{"id":"a","text":"Summarization"},{"id":"b","text":"Sentiment analysis"},{"id":"c","text":"Key phrase extraction"},{"id":"d","text":"Entity detection"}],"correct":["a"],"explanation":"Summarization is correct, since it condenses longer text into a short version that captures the core content. Entity detection extracts named entities. Sentiment analysis measures emotional tone. Key phrase extraction surfaces important terms rather than producing a condensed narrative summary."},{"id":"q017","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A hotel chain wants to automatically gauge whether guest reviews are generally positive, negative, or neutral, so it can prioritize which properties need improvement. Which text analysis technique is most appropriate?","options":[{"id":"a","text":"Language detection"},{"id":"b","text":"Sentiment analysis"},{"id":"c","text":"Named entity recognition"},{"id":"d","text":"Key phrase extraction"}],"correct":["b"],"explanation":"Sentiment analysis is correct, since it evaluates the emotional tone of text and classifies it as positive, negative, or neutral. Named entity recognition extracts entities. Key phrase extraction surfaces important terms. Language detection identifies which language the text is written in, none of which measure sentiment."},{"id":"q018","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A company records customer service calls and wants to automatically convert the spoken audio into written transcripts for later analysis. Which AI capability should it use?","options":[{"id":"a","text":"Entity detection"},{"id":"b","text":"Image generation"},{"id":"c","text":"Speech recognition"},{"id":"d","text":"Speech synthesis"}],"correct":["c"],"explanation":"Speech recognition is correct, since it converts spoken audio into written text. Speech synthesis does the reverse, converting text into audio. Image generation creates visual content. Entity detection operates on existing text rather than producing a transcript from audio."},{"id":"q019","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"An accessibility team wants an application that can read website articles aloud to visually impaired users in a natural-sounding voice. Which AI capability is required?","options":[{"id":"a","text":"Object detection"},{"id":"b","text":"Sentiment analysis"},{"id":"c","text":"Speech recognition"},{"id":"d","text":"Speech synthesis"}],"correct":["d"],"explanation":"Speech synthesis is correct, since it converts written text into natural-sounding spoken audio, which is exactly what is needed to read articles aloud. Speech recognition does the opposite, converting audio to text. Sentiment analysis and object detection are unrelated to producing audio output."},{"id":"q020","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A factory wants to automatically sort photos of manufactured parts into defective or acceptable categories based on their overall appearance. Which computer vision capability is most appropriate?","options":[{"id":"a","text":"Image classification"},{"id":"b","text":"Object detection"},{"id":"c","text":"Facial recognition"},{"id":"d","text":"Optical character recognition"}],"correct":["a"],"explanation":"Image classification is correct, since it assigns an overall category label, such as defective or acceptable, to an entire image. Object detection locates and labels multiple individual items within an image rather than classifying the whole image. Optical character recognition extracts text. Facial recognition identifies specific people."},{"id":"q021","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"multi","question":"A retail store wants to analyze security camera footage to identify that people are present in a frame and determine their exact location within the image. Which two capabilities describe this scenario? (Select two.)","options":[{"id":"a","text":"Speech-to-text transcription"},{"id":"b","text":"Locating objects using bounding box coordinates"},{"id":"c","text":"Sentiment analysis"},{"id":"d","text":"Object detection"}],"correct":["b","d"],"explanation":"Object detection and locating objects with bounding boxes are correct, since object detection identifies that people are present and returns bounding box coordinates marking their location in the frame. Sentiment analysis evaluates emotional tone in text, and speech-to-text transcribes audio, neither of which apply to locating people in images."},{"id":"q022","domain":"Identify AI concepts and capabilities","sub":"AI workloads","type":"single","question":"A media company wants a single AI-powered workflow that can pull structured information, such as speaker names, key topics, and timestamps, out of recorded video interviews. Which category of AI workload does this best represent?","options":[{"id":"a","text":"Image classification"},{"id":"b","text":"Speech synthesis"},{"id":"c","text":"Information extraction"},{"id":"d","text":"Sentiment analysis"}],"correct":["c"],"explanation":"Information extraction is correct, since it covers pulling structured data, such as names, topics, and timestamps, out of unstructured sources like video. Speech synthesis produces audio from text. Image classification labels whole images. Sentiment analysis measures emotional tone rather than extracting structured facts."},{"id":"q023","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"single","question":"A developer is writing a user prompt for a deployed generative AI model in Foundry and wants the model to return a concise, three-bullet summary of a long document. Which approach best follows prompt engineering best practices?","options":[{"id":"a","text":"Clearly state the desired output format and length directly in the prompt, alongside the document content"},{"id":"b","text":"Rely only on the system message and leave the user prompt empty"},{"id":"c","text":"Paste the document with no instructions and let the model decide the format"},{"id":"d","text":"Send the document across dozens of separate short messages"}],"correct":["a"],"explanation":"Stating the desired format and length directly in the prompt is correct, since clear, specific instructions produce more predictable, useful output. Providing no instructions leaves the format to chance. Splitting the document across many messages adds unnecessary complexity. An empty user prompt gives the model no actual task to perform."},{"id":"q024","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"single","question":"A developer wants to make a foundation model available for testing and integration in their application. In the Foundry portal, which action allows them to select a model from the catalog and make it available for inference?","options":[{"id":"a","text":"Creating a storage account"},{"id":"b","text":"Deploying the model"},{"id":"c","text":"Configuring a virtual network"},{"id":"d","text":"Publishing a Power BI report"}],"correct":["b"],"explanation":"Deploying the model is correct, since deployment is the action that makes a chosen model from the catalog available to receive requests. Creating a storage account and configuring a virtual network are infrastructure tasks unrelated to making a model callable. Publishing a Power BI report is unrelated to Foundry model deployment."},{"id":"q025","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"single","question":"After deploying a model in Foundry, a developer wants to quickly test different prompts and compare responses before writing any application code. Which Foundry portal feature should they use?","options":[{"id":"a","text":"The billing dashboard"},{"id":"b","text":"The resource group overview"},{"id":"c","text":"The model playground or chat interface"},{"id":"d","text":"The activity log"}],"correct":["c"],"explanation":"The model playground or chat interface is correct, since it lets developers interactively test prompts and view responses directly in the portal. The billing dashboard shows cost data, the resource group overview lists resources, and the activity log records operations, none of which allow interactive prompt testing."},{"id":"q026","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"single","question":"A developer is building a simple Python console application that sends a user's typed question to a deployed model and prints the response. Which approach is most appropriate?","options":[{"id":"a","text":"Export the model weights and run them locally without any SDK"},{"id":"b","text":"Manually copy and paste responses from the Foundry portal each time"},{"id":"c","text":"Use only the Azure Storage SDK to retrieve cached answers"},{"id":"d","text":"Use the Foundry SDK to call the deployed model endpoint from the application code"}],"correct":["d"],"explanation":"Using the Foundry SDK to call the deployed endpoint is correct, since it lets the application programmatically send prompts and receive responses. Manually copying responses is not a scalable application design. Exporting model weights is unnecessary and often not possible for hosted models. The Storage SDK retrieves stored data and cannot generate live model responses."},{"id":"q027","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"multi","question":"A team is creating a single-agent solution in the Foundry portal that should be able to look up order status and send confirmation emails. Which two things must they configure for the agent? (Select two.)","options":[{"id":"a","text":"The tools or actions the agent is allowed to call"},{"id":"b","text":"A color scheme for the company's public website"},{"id":"c","text":"A physical office location for the support team"},{"id":"d","text":"Instructions that define the agent's role and behavior"}],"correct":["a","d"],"explanation":"Instructions and available tools are correct, since an agent needs defined behavior guidance and a set of tools or actions it can invoke, such as an order-lookup function and an email-sending function, to complete its task. A website color scheme and a physical office location have no bearing on agent configuration."},{"id":"q028","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"single","question":"Before releasing an agent to production, a developer wants to send it sample conversations and verify it calls the correct tools and produces reasonable responses. Where in Foundry can this testing be done?","options":[{"id":"a","text":"The Azure DNS zone settings"},{"id":"b","text":"The Foundry portal's agent testing or playground pane"},{"id":"c","text":"The Azure Cost Management blade"},{"id":"d","text":"The SQL query editor"}],"correct":["b"],"explanation":"The agent testing or playground pane is correct, since it is designed for sending sample conversations to a configured agent and observing its behavior before release. Cost Management tracks spending, the SQL query editor works with databases, and DNS zone settings manage domain routing, none of which support conversational agent testing."},{"id":"q029","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"single","question":"A company wants end users to interact with their deployed agent through a simple web chat widget embedded in their support site. Which of the following best describes how this is typically built?","options":[{"id":"a","text":"The agent can only be accessed through the Foundry portal itself"},{"id":"b","text":"Agents cannot be integrated into external applications"},{"id":"c","text":"A lightweight client application calls the agent through the Foundry SDK or REST endpoint and renders the conversation"},{"id":"d","text":"The agent automatically generates its own website with no development required"}],"correct":["c"],"explanation":"A lightweight client application calling the agent through the SDK or REST endpoint is correct, since this is the standard pattern for embedding agent conversations into a custom interface. Agents do not generate websites automatically, are not limited to the Foundry portal, and can be integrated into external applications through client code."},{"id":"q030","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Generative AI apps and agents","type":"single","question":"A developer wants a deployed model to always respond in a formal tone, never provide financial advice, and always answer in English regardless of the input language. Where should these ongoing behavioral rules be defined?","options":[{"id":"a","text":"In the system prompt or message that applies across the conversation"},{"id":"b","text":"In a one-time user prompt at the start of each new conversation"},{"id":"c","text":"In the Foundry billing settings"},{"id":"d","text":"In the deployment's resource tags"}],"correct":["a"],"explanation":"The system prompt is correct, since it defines persistent behavior, tone, and constraints that apply throughout the conversation rather than needing to be restated. A one-time user prompt would not persist across turns. Resource tags are metadata for organizing resources, and billing settings control cost management, neither of which affect model behavior."},{"id":"q031","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Text and speech","type":"single","question":"A developer wants to build a small application that takes customer feedback text as input and returns the key topics mentioned, using AI capabilities available within Foundry Tools. Which capability should the application call?","options":[{"id":"a","text":"Image generation"},{"id":"b","text":"Text analysis"},{"id":"c","text":"Anomaly detection"},{"id":"d","text":"Speech synthesis"}],"correct":["b"],"explanation":"Text analysis is correct, since it covers extracting topics and other insights from written text. Image generation creates visual content. Speech synthesis converts text to audio. Anomaly detection identifies unusual patterns in data, none of which extract topics from feedback text."},{"id":"q032","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Text and speech","type":"single","question":"A voice-enabled kiosk captures a customer's spoken question, converts it to text, and sends it directly to a deployed multimodal model that can understand both speech input and generate a relevant text response. Which capability is being used?","options":[{"id":"a","text":"Object detection"},{"id":"b","text":"Key phrase extraction"},{"id":"c","text":"Responding to spoken prompts using a multimodal model"},{"id":"d","text":"Optical character recognition"}],"correct":["c"],"explanation":"Responding to spoken prompts using a multimodal model is correct, since the scenario describes a model handling spoken input and generating a response. Optical character recognition reads text from images. Key phrase extraction identifies important terms in existing text. Object detection locates items in images, none of which apply to handling spoken questions."},{"id":"q033","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Text and speech","type":"multi","question":"A developer is using Azure Speech within Foundry Tools to build a voice assistant. Which two capabilities does Azure Speech provide for this scenario? (Select two.)","options":[{"id":"a","text":"Classifying images into categories"},{"id":"b","text":"Converting written text into natural-sounding spoken audio"},{"id":"c","text":"Converting spoken audio into text"},{"id":"d","text":"Detecting fraudulent credit card transactions"}],"correct":["b","c"],"explanation":"Converting speech to text and text to speech are correct, since these are the core capabilities Azure Speech provides for building voice assistants. Detecting fraudulent transactions and classifying images are unrelated capabilities handled by other services entirely."},{"id":"q034","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Text and speech","type":"single","question":"A company wants a lightweight app that records a customer call, transcribes it using Azure Speech in Foundry Tools, and then passes the transcript to a language model for summarization. Which Azure Speech capability enables the transcription step?","options":[{"id":"a","text":"Image captioning"},{"id":"b","text":"Text-to-speech"},{"id":"c","text":"Sentiment scoring"},{"id":"d","text":"Speech-to-text"}],"correct":["d"],"explanation":"Speech-to-text is correct, since it converts the recorded audio into a written transcript that can then be passed to a language model. Text-to-speech performs the reverse conversion. Image captioning describes image content, and sentiment scoring measures emotional tone, neither of which produces a transcript from audio."},{"id":"q035","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Text and speech","type":"single","question":"After a deployed model generates a text response to a customer's spoken question, the application needs to read that response back to the customer as audio. Which Azure Speech capability should be used?","options":[{"id":"a","text":"Text-to-speech"},{"id":"b","text":"Entity recognition"},{"id":"c","text":"Speech-to-text"},{"id":"d","text":"Object detection"}],"correct":["a"],"explanation":"Text-to-speech is correct, since it converts the generated text response into spoken audio for the customer to hear. Speech-to-text performs the opposite conversion. Entity recognition extracts named entities from text, and object detection locates items in images, neither of which produce audio output."},{"id":"q036","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Text and speech","type":"single","question":"A developer is building a voice assistant that must remember earlier parts of a spoken conversation to correctly answer follow-up questions, such as 'what about next week?' after asking about the weather today. Which capability must the application maintain across turns?","options":[{"id":"a","text":"Billing alerts"},{"id":"b","text":"Image resolution"},{"id":"c","text":"Network latency"},{"id":"d","text":"Conversation context or history"}],"correct":["d"],"explanation":"Maintaining conversation context or history is correct, since it allows the model to interpret follow-up questions in light of earlier turns. Image resolution relates to visual content, billing alerts relate to cost monitoring, and network latency relates to response speed, none of which help the model understand conversational references."},{"id":"q037","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Computer vision and image generation","type":"single","question":"A developer sends a photo of a whiteboard along with the question 'What are the three action items listed here?' to a deployed multimodal model. Which capability allows the model to answer using the image content?","options":[{"id":"a","text":"Interpreting visual input using a multimodal model"},{"id":"b","text":"Anomaly detection"},{"id":"c","text":"Key phrase extraction from audio"},{"id":"d","text":"Text-to-speech"}],"correct":["a"],"explanation":"Interpreting visual input using a multimodal model is correct, since the scenario requires the model to read and reason about the contents of an image alongside a text question. Text-to-speech produces audio, key phrase extraction from audio requires spoken input, and anomaly detection identifies unusual data patterns, none of which interpret image content."},{"id":"q038","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Computer vision and image generation","type":"single","question":"A design team wants to generate several original concept images of a futuristic product based only on a written text description. Which capability should they use?","options":[{"id":"a","text":"Object detection"},{"id":"b","text":"Image generation using a generative model"},{"id":"c","text":"Sentiment analysis"},{"id":"d","text":"Optical character recognition"}],"correct":["b"],"explanation":"Image generation using a generative model is correct, since it creates new original visual content from a text description. Object detection locates items in existing images rather than creating new ones. Optical character recognition reads text within images. Sentiment analysis evaluates emotional tone in text, neither of which produce new images."},{"id":"q039","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Computer vision and image generation","type":"multi","question":"A developer is building a lightweight mobile app that lets users photograph a receipt and see both the detected total amount and a bounding box drawn around it on the image. Which two vision-related capabilities does this app rely on? (Select two.)","options":[{"id":"a","text":"Extracting text and values from the image"},{"id":"b","text":"Detecting spoken sentiment"},{"id":"c","text":"Translating text between languages"},{"id":"d","text":"Locating regions of interest with bounding boxes"}],"correct":["a","d"],"explanation":"Extracting text and values, and locating regions with bounding boxes are correct, since the app both reads the total amount from the image and visually marks its location. Translating text between languages and detecting spoken sentiment are unrelated tasks not required by this scenario."},{"id":"q040","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Computer vision and image generation","type":"single","question":"A team needs a model that can look at a photo of a broken appliance part and answer a customer's written question about what the part is. Which type of model should be deployed?","options":[{"id":"a","text":"A speech synthesis model"},{"id":"b","text":"A tabular regression model"},{"id":"c","text":"A multimodal model"},{"id":"d","text":"A text-only classification model"}],"correct":["c"],"explanation":"A multimodal model is correct, since it can process both the image of the part and the accompanying written question to produce a relevant answer. A text-only classification model cannot interpret images. A speech synthesis model produces audio. A tabular regression model predicts numeric values from structured data, none of which fit this scenario."},{"id":"q041","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Computer vision and image generation","type":"single","question":"A developer generating marketing images with a deployed image-generation model wants to control the visual style and output resolution of each generated image. Where are these settings typically configured?","options":[{"id":"a","text":"In the DNS configuration for the app"},{"id":"b","text":"In the model's deployment or generation parameters"},{"id":"c","text":"In the Foundry resource group's access control list"},{"id":"d","text":"In the Azure subscription billing page"}],"correct":["b"],"explanation":"The model's deployment or generation parameters are correct, since settings such as style and resolution are configured as part of the image-generation request or deployment configuration. Billing pages track cost, access control lists manage permissions, and DNS configuration manages domain routing, none of which affect image output settings."},{"id":"q042","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Computer vision and image generation","type":"single","question":"A retail app lets a customer upload a photo of a product, extracts a text description of what is shown using a vision-capable model, and then runs sentiment analysis on customer comments about that product. Which best describes this application?","options":[{"id":"a","text":"It only uses speech recognition"},{"id":"b","text":"It cannot use more than one AI capability at a time"},{"id":"c","text":"It combines vision and text analysis capabilities using Foundry Tools"},{"id":"d","text":"It relies solely on anomaly detection"}],"correct":["c"],"explanation":"Combining vision and text analysis capabilities is correct, since the app both interprets an image and analyzes text sentiment, two distinct capabilities working together. The app does not use speech recognition or anomaly detection at all, and Foundry-based applications can combine multiple AI capabilities within a single workflow."},{"id":"q043","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"single","question":"A logistics company wants to automatically pull the sender address, recipient address, and tracking number from scanned shipping labels using Foundry Tools. Which capability is most appropriate?","options":[{"id":"a","text":"Sentiment analysis"},{"id":"b","text":"Image generation"},{"id":"c","text":"Text-to-speech"},{"id":"d","text":"Azure Content Understanding for documents"}],"correct":["d"],"explanation":"Azure Content Understanding for documents is correct, since it extracts structured, labeled fields such as addresses and tracking numbers from documents like shipping labels. Text-to-speech produces audio, sentiment analysis measures emotional tone, and image generation creates new images, none of which extract structured document fields."},{"id":"q044","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"multi","question":"A team is using Azure Content Understanding to process photos of receipts and wants to extract both the itemized purchase list and the total amount paid. Which two outputs would Content Understanding typically provide in this scenario? (Select two.)","options":[{"id":"a","text":"A translated version of the receipt into every world language"},{"id":"b","text":"The total amount detected on the receipt"},{"id":"c","text":"A structured list of purchased items"},{"id":"d","text":"The store's stock price history"}],"correct":["b","c"],"explanation":"A structured list of items and the detected total amount are correct, since these are exactly the structured fields Content Understanding is designed to extract from a receipt image. Stock price history is unrelated financial market data, and translating into every world language is not a standard extraction output."},{"id":"q045","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"single","question":"A call center wants to automatically extract the customer's stated issue, the agent's resolution, and any follow-up date mentioned during a recorded support call. Which Foundry capability is best suited for this?","options":[{"id":"a","text":"Azure Content Understanding for audio"},{"id":"b","text":"Image classification"},{"id":"c","text":"Key phrase extraction from images"},{"id":"d","text":"Object detection"}],"correct":["a"],"explanation":"Azure Content Understanding for audio is correct, since it can extract structured information such as issues, resolutions, and dates from recorded audio calls. Image classification and object detection both operate on images, not audio, and key phrase extraction from images is not a meaningful capability since key phrases come from text or speech, not visual content."},{"id":"q046","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"single","question":"A media archive team wants to automatically identify key scenes, speaker names, and spoken keywords across hours of recorded video interviews. Which capability should they use?","options":[{"id":"a","text":"Sentiment analysis on emails"},{"id":"b","text":"Optical character recognition on printed documents"},{"id":"c","text":"Speech synthesis only"},{"id":"d","text":"Azure Content Understanding for video"}],"correct":["d"],"explanation":"Azure Content Understanding for video is correct, since it is designed to extract structured information, such as scenes, speakers, and keywords, from video content. Speech synthesis only produces audio and does not extract information. Optical character recognition applies to printed documents, and sentiment analysis on emails is unrelated to processing video interviews."},{"id":"q047","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"single","question":"A developer wants to build a simple application where users upload an invoice and immediately see the extracted vendor name, invoice date, and total due. Which combination best describes how this is typically implemented?","options":[{"id":"a","text":"A lightweight client application that calls Azure Content Understanding in Foundry Tools and displays the extracted fields"},{"id":"b","text":"A speech synthesis service that reads the invoice aloud without extracting any data"},{"id":"c","text":"A manual data entry process performed by the development team"},{"id":"d","text":"A static webpage with no AI capabilities at all"}],"correct":["a"],"explanation":"A lightweight client application calling Azure Content Understanding is correct, since this is the standard pattern for building an app that extracts and displays structured fields from an uploaded document. A static webpage with no AI, a speech-only service, and manual data entry would not automatically extract structured invoice fields."},{"id":"q048","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"single","question":"A company previously used a plain text-extraction service that returned all text on a page with no understanding of field relationships. They now want a solution that maps extracted text to specific labeled fields like invoice total and due date. Which capability should they move to?","options":[{"id":"a","text":"Continue using plain text extraction with no field mapping"},{"id":"b","text":"Azure Content Understanding, which extracts structured, labeled fields"},{"id":"c","text":"Text-to-speech conversion"},{"id":"d","text":"Image generation"}],"correct":["b"],"explanation":"Azure Content Understanding is correct, since it maps extracted content to specific labeled fields rather than returning unstructured raw text. Continuing with plain text extraction would not solve the stated problem. Text-to-speech conversion and image generation are unrelated capabilities that do not extract or label document fields."},{"id":"q049","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"multi","question":"When configuring Azure Content Understanding to extract data from a custom form type, which two things does a developer typically need to define? (Select two.)","options":[{"id":"a","text":"The specific fields to extract, such as total amount or customer name"},{"id":"b","text":"Sample documents representing the form type"},{"id":"c","text":"The office Wi-Fi password"},{"id":"d","text":"The company's social media posting schedule"}],"correct":["a","b"],"explanation":"Defining the fields to extract and providing sample documents are correct, since these are the standard inputs needed to configure a custom extraction schema. The office Wi-Fi password and a social media posting schedule are unrelated to configuring document extraction."},{"id":"q050","domain":"Implement AI solutions by using Microsoft Foundry","sub":"Information extraction","type":"single","question":"A company wants extracted invoice data from Azure Content Understanding to automatically trigger an agent that schedules a payment task. Which best describes this workflow?","options":[{"id":"a","text":"This workflow requires no AI capabilities at all"},{"id":"b","text":"The invoice data must be manually retyped before any agent can use it"},{"id":"c","text":"Information extraction output feeding into an agent's actions within Foundry"},{"id":"d","text":"Content Understanding and agents cannot be used together"}],"correct":["c"],"explanation":"Information extraction output feeding into an agent's actions is correct, since Foundry supports combining extraction results with downstream agent workflows to automate tasks like scheduling payments. Manual retyping defeats the purpose of automated extraction, and Content Understanding and agents can in fact be used together as part of a single Foundry-based solution."}]</script>
+<script>
+/* ================= AI-901 Exam Simulator Logic ================= */
+const QUESTIONS = JSON.parse(document.getElementById('questionsData').textContent);
+const TOTAL_Q = QUESTIONS.length;
+const TIME_LIMIT_SECONDS = 60 * 60;
+const PASS_PERCENT = 70;
+
+let state = {
+  answers: {},      // id -> array of selected option ids
+  flagged: {},       // id -> bool
+  current: 0,
+  timeLeft: TIME_LIMIT_SECONDS,
+  timerInterval: null,
+  warnings: 0,
+  examEnded: false,
+  examStarted: false,
+  reviewFilter: 'all'
+};
+
+/* ---------------- Screen switching ---------------- */
+function showScreen(name){
+  document.getElementById('introScreen').style.display = name==='intro' ? 'block' : 'none';
+  document.getElementById('examScreen').style.display = name==='exam' ? 'block' : 'none';
+  document.getElementById('resultsScreen').style.display = name==='results' ? 'block' : 'none';
+  document.getElementById('reviewScreen').style.display = name==='review' ? 'block' : 'none';
+  window.scrollTo(0,0);
+}
+
+/* ---------------- Start / Retake ---------------- */
+function startExam(){
+  state = {
+    answers: {}, flagged: {}, current: 0,
+    timeLeft: TIME_LIMIT_SECONDS, timerInterval: null,
+    warnings: 0, examEnded: false, examStarted: true, reviewFilter:'all'
+  };
+  buildNavGrid();
+  renderQuestion();
+  startTimer();
+  showScreen('exam');
+}
+
+function retakeExam(){
+  showScreen('intro');
+}
+
+/* ---------------- Timer ---------------- */
+function startTimer(){
+  updateTimerDisplay();
+  state.timerInterval = setInterval(()=>{
+    if(state.examEnded){ clearInterval(state.timerInterval); return; }
+    state.timeLeft--;
+    updateTimerDisplay();
+    if(state.timeLeft <= 0){
+      clearInterval(state.timerInterval);
+      finalizeSubmit(true);
+    }
+  }, 1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(state.timeLeft/60);
+  const s = state.timeLeft%60;
+  document.getElementById('timerText').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const box = document.getElementById('timerBox');
+  if(state.timeLeft <= 300){ box.classList.add('low'); } else { box.classList.remove('low'); }
+}
+
+/* ---------------- Rendering the question ---------------- */
+function renderQuestion(){
+  const q = QUESTIONS[state.current];
+  document.getElementById('qNumBadge').textContent = `Question ${state.current+1} of ${TOTAL_Q}`;
+  document.getElementById('qDomainTag').textContent = q.sub ? q.sub : q.domain;
+  document.getElementById('qText').textContent = q.question;
+
+  const multiTag = document.getElementById('qMultiTag');
+  if(q.type === 'multi'){
+    multiTag.classList.remove('hidden');
+    multiTag.textContent = `Select ${q.correct.length}`;
+  } else {
+    multiTag.classList.add('hidden');
+  }
+
+  const optsWrap = document.getElementById('qOptions');
+  optsWrap.innerHTML = '';
+  const selected = state.answers[q.id] || [];
+  q.options.forEach(opt=>{
+    const div = document.createElement('div');
+    div.className = 'option' + (selected.includes(opt.id) ? ' selected' : '');
+    div.innerHTML = `<span class="opt-letter">${opt.id.toUpperCase()}</span><span class="opt-text">${escapeHtml(opt.text)}</span>`;
+    div.onclick = ()=> selectOption(q, opt.id);
+    optsWrap.appendChild(div);
+  });
+
+  const flagBtn = document.getElementById('flagBtn');
+  flagBtn.classList.toggle('flagged', !!state.flagged[q.id]);
+  flagBtn.textContent = state.flagged[q.id] ? 'Flagged for Review' : 'Flag for Review';
+
+  document.getElementById('prevBtn').disabled = state.current === 0;
+  document.getElementById('prevBtn').style.opacity = state.current === 0 ? 0.5 : 1;
+  document.getElementById('nextBtn').textContent = state.current === TOTAL_Q-1 ? 'Finish →' : 'Next →';
+
+  updateSidebar();
+  updateNavGrid();
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function selectOption(q, optId){
+  const maxSelect = q.type === 'multi' ? q.correct.length : 1;
+  let current = state.answers[q.id] || [];
+
+  if(q.type === 'single'){
+    current = [optId];
+  } else {
+    if(current.includes(optId)){
+      current = current.filter(id=>id!==optId);
+    } else {
+      if(current.length >= maxSelect){
+        // replace oldest selection to keep exactly maxSelect max
+        current = current.slice(1).concat(optId);
+      } else {
+        current = current.concat(optId);
+      }
+    }
+  }
+
+  if(current.length === 0){
+    delete state.answers[q.id];
+  } else {
+    state.answers[q.id] = current;
+  }
+  renderQuestion();
+}
+
+function toggleFlag(){
+  const q = QUESTIONS[state.current];
+  state.flagged[q.id] = !state.flagged[q.id];
+  renderQuestion();
+}
+
+function prevQuestion(){
+  if(state.current > 0){ state.current--; renderQuestion(); }
+}
+function nextQuestion(){
+  if(state.current < TOTAL_Q-1){ state.current++; renderQuestion(); }
+  else { confirmSubmit(); }
+}
+function jumpTo(idx){
+  state.current = idx;
+  renderQuestion();
+}
+
+/* ---------------- Sidebar / Navigator ---------------- */
+function updateSidebar(){
+  const answeredCount = Object.keys(state.answers).length;
+  const flaggedCount = Object.values(state.flagged).filter(Boolean).length;
+  document.getElementById('hdrAnswered').textContent = `${answeredCount}/${TOTAL_Q}`;
+  document.getElementById('hdrFlagged').textContent = flaggedCount;
+  document.getElementById('sideAnswered').textContent = `${answeredCount} / ${TOTAL_Q}`;
+  document.getElementById('sideUnanswered').textContent = TOTAL_Q - answeredCount;
+  document.getElementById('sideFlagged').textContent = flaggedCount;
+}
+
+function buildNavGrid(){
+  const grid = document.getElementById('navGrid');
+  grid.innerHTML = '';
+  QUESTIONS.forEach((q, idx)=>{
+    const cell = document.createElement('div');
+    cell.className = 'navcell';
+    cell.id = 'navcell-'+idx;
+    cell.textContent = idx+1;
+    cell.onclick = ()=> jumpTo(idx);
+    grid.appendChild(cell);
+  });
+}
+
+function updateNavGrid(){
+  QUESTIONS.forEach((q, idx)=>{
+    const cell = document.getElementById('navcell-'+idx);
+    cell.className = 'navcell';
+    if(state.answers[q.id]) cell.classList.add('answered');
+    if(state.flagged[q.id]) cell.classList.add('flagged');
+    if(idx === state.current) cell.classList.add('current');
+  });
+}
+
+/* ---------------- Tab switch detection ---------------- */
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden && state.examStarted && !state.examEnded){
+    state.warnings++;
+    if(state.warnings >= 3){
+      finalizeSubmit(true, true);
+    } else {
+      document.getElementById('warnCount').textContent = state.warnings;
+      document.getElementById('tabWarningModal').classList.remove('hidden');
+    }
+  }
+});
+function dismissTabWarning(){
+  document.getElementById('tabWarningModal').classList.add('hidden');
+}
+
+/* ---------------- Submit flow ---------------- */
+function confirmSubmit(){
+  const answeredCount = Object.keys(state.answers).length;
+  const unanswered = TOTAL_Q - answeredCount;
+  const text = unanswered > 0
+    ? `You still have ${unanswered} unanswered question(s). Once submitted, answers cannot be changed. Are you sure you want to submit?`
+    : `You have answered all ${TOTAL_Q} questions. Once submitted, answers cannot be changed. Are you sure you want to submit?`;
+  document.getElementById('submitConfirmText').textContent = text;
+  document.getElementById('submitConfirmModal').classList.remove('hidden');
+}
+function cancelSubmit(){
+  document.getElementById('submitConfirmModal').classList.add('hidden');
+}
+function doSubmitExam(){
+  document.getElementById('submitConfirmModal').classList.add('hidden');
+  finalizeSubmit(false);
+}
+
+function finalizeSubmit(autoSubmitted, tabAutoSubmit){
+  if(state.examEnded) return;
+  state.examEnded = true;
+  clearInterval(state.timerInterval);
+  document.getElementById('tabWarningModal').classList.add('hidden');
+  document.getElementById('submitConfirmModal').classList.add('hidden');
+  renderResults();
+  showScreen('results');
+}
+
+/* ---------------- Scoring ---------------- */
+function isCorrect(q){
+  const given = state.answers[q.id] || [];
+  const correct = q.correct;
+  if(given.length !== correct.length) return false;
+  const sortedGiven = [...given].sort();
+  const sortedCorrect = [...correct].sort();
+  return sortedGiven.every((v,i)=> v===sortedCorrect[i]);
+}
+
+function renderResults(){
+  let correctCount = 0;
+  const domainStats = {};
+
+  QUESTIONS.forEach(q=>{
+    if(!domainStats[q.domain]) domainStats[q.domain] = {correct:0,total:0};
+    domainStats[q.domain].total++;
+    if(isCorrect(q)){
+      correctCount++;
+      domainStats[q.domain].correct++;
+    }
+  });
+
+  const incorrectCount = TOTAL_Q - correctCount;
+  const percent = Math.round((correctCount/TOTAL_Q)*100);
+  const scaled = Math.round((correctCount/TOTAL_Q)*1000);
+  const passed = percent >= PASS_PERCENT;
+
+  document.getElementById('scaledScore').textContent = `${scaled} / 1000`;
+  document.getElementById('resCorrect').textContent = correctCount;
+  document.getElementById('resIncorrect').textContent = incorrectCount;
+  document.getElementById('resPercent').textContent = percent + '%';
+
+  const badge = document.getElementById('passBadge');
+  badge.textContent = passed ? 'PASS ✓' : 'FAIL ✗';
+  badge.className = 'pass-badge ' + (passed ? 'pass' : 'fail');
+
+  const dbBody = document.getElementById('domainBreakdownBody');
+  dbBody.innerHTML = '';
+  Object.keys(domainStats).forEach(domain=>{
+    const s = domainStats[domain];
+    const pct = Math.round((s.correct/s.total)*100);
+    const row = document.createElement('div');
+    row.className = 'dbrow';
+    row.innerHTML = `
+      <div class="dbtop"><span>${escapeHtml(domain)}</span><b>${s.correct} / ${s.total} (${pct}%)</b></div>
+      <div class="barbg"><div class="barfill" style="width:${pct}%;"></div></div>
+    `;
+    dbBody.appendChild(row);
+  });
+}
+
+/* ---------------- Review mode ---------------- */
+function openReview(){
+  state.reviewFilter = 'all';
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  document.querySelector('.filter-chip[data-filter="all"]').classList.add('active');
+  renderReviewList();
+  showScreen('review');
+}
+function backToResults(){
+  showScreen('results');
+}
+function setReviewFilter(filter){
+  state.reviewFilter = filter;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  document.querySelector(`.filter-chip[data-filter="${filter}"]`).classList.add('active');
+  renderReviewList();
+}
+
+function renderReviewList(){
+  const list = document.getElementById('reviewList');
+  list.innerHTML = '';
+
+  QUESTIONS.forEach((q, idx)=>{
+    const correct = isCorrect(q);
+    const given = state.answers[q.id] || [];
+    const flagged = !!state.flagged[q.id];
+
+    if(state.reviewFilter === 'incorrect' && correct) return;
+    if(state.reviewFilter === 'flagged' && !flagged) return;
+
+    const item = document.createElement('div');
+    item.className = 'review-item';
+
+    let optsHtml = '';
+    q.options.forEach(opt=>{
+      const isCorrectOpt = q.correct.includes(opt.id);
+      const isUserPick = given.includes(opt.id);
+      let cls = '';
+      if(isCorrectOpt) cls = 'correct-answer';
+      else if(isUserPick && !isCorrectOpt) cls = 'user-wrong';
+      let marker = '';
+      if(isCorrectOpt && isUserPick) marker = ' ✓ (your answer, correct)';
+      else if(isCorrectOpt) marker = ' ✓ (correct answer)';
+      else if(isUserPick) marker = ' ✗ (your answer)';
+      optsHtml += `<div class="review-option ${cls}"><span class="opt-letter">${opt.id.toUpperCase()}</span><span>${escapeHtml(opt.text)}${marker}</span></div>`;
+    });
+
+    item.innerHTML = `
+      <div class="rtop">
+        <span class="qnum-badge">Q${idx+1}</span>
+        <span class="domain-tag">${escapeHtml(q.sub || q.domain)}</span>
+        <span class="result-tag ${correct ? 'correct':'incorrect'}">${correct ? 'Correct' : (given.length ? 'Incorrect' : 'Unanswered')}</span>
+        ${flagged ? '<span class="result-tag" style="background:#FFEBB8;color:#8A5A00;">Flagged</span>' : ''}
+      </div>
+      <div class="rqtext">${escapeHtml(q.question)}</div>
+      ${optsHtml}
+      <div class="review-explain"><b>Explanation:</b> ${escapeHtml(q.explanation)}</div>
+    `;
+    list.appendChild(item);
+  });
+
+  if(list.innerHTML === ''){
+    list.innerHTML = '<p style="text-align:center;color:var(--ms-muted);padding:40px 0;">No questions match this filter.</p>';
+  }
+}
+
+</script>
+</body>
+</html>

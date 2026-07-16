@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-901 Mock Tests | K21 Academy</title>
+<style>
+  :root{
+    --ms-navy:#104581;
+    --ms-blue:#0078D4;
+    --ms-blue-light:#3CCBF4;
+    --ms-bg:#F3F9FD;
+    --ms-card:#FFFFFF;
+    --ms-border:#D7E7F5;
+    --ms-text:#152A3C;
+    --ms-muted:#5B7186;
+    --shadow:0 4px 16px rgba(16,69,129,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--ms-bg);color:var(--ms-text);line-height:1.5;
+  }
+  .brandbar{
+    background:linear-gradient(90deg,var(--ms-navy),var(--ms-blue));
+    color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;
+    box-shadow:var(--shadow);flex-wrap:wrap;gap:8px;
+  }
+  .brandbar .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;}
+  .brandbar .logo .badge{
+    background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:6px;font-size:12px;letter-spacing:.4px;
+  }
+  .brandbar .tagline{font-size:13px;opacity:.9;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:44px 20px 70px;}
+  .pill{
+    display:inline-block;background:#E8F3FC;color:var(--ms-blue);font-size:12px;font-weight:600;
+    padding:6px 14px;border-radius:999px;letter-spacing:.3px;margin-bottom:16px;border:1px solid var(--ms-border);
+  }
+  h1{font-size:34px;margin:0 0 10px;color:var(--ms-navy);}
+  .subtitle{color:var(--ms-muted);font-size:15px;max-width:720px;margin:0 0 30px;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px;}
+  .stat-card{
+    background:var(--ms-card);border:1px solid var(--ms-border);border-radius:10px;
+    padding:16px 18px;box-shadow:var(--shadow);
+  }
+  .stat-card .label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--ms-muted);font-weight:600;}
+  .stat-card .value{font-size:19px;font-weight:700;color:var(--ms-navy);margin-top:4px;}
+
+  h2.section-title{font-size:20px;color:var(--ms-navy);margin:0 0 6px;}
+  .section-desc{color:var(--ms-muted);font-size:14px;margin:0 0 24px;}
+
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:44px;}
+  .test-card{
+    background:var(--ms-card);border:1px solid var(--ms-border);border-radius:12px;
+    padding:22px 24px;box-shadow:var(--shadow);display:flex;flex-direction:column;
+    transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .test-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(16,69,129,0.14);}
+  .test-card .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+  .test-card h3{margin:0;font-size:18px;color:var(--ms-navy);}
+  .badge-tag{font-size:11px;font-weight:700;padding:5px 12px;border-radius:999px;letter-spacing:.3px;}
+  .badge-starter{background:#E8F3FC;color:var(--ms-blue);}
+  .badge-practice{background:#FFF1DB;color:#8A5A00;}
+  .badge-challenge{background:#FBE1E2;color:#A31A1E;}
+  .test-card p.desc{color:var(--ms-muted);font-size:13.5px;margin:0 0 14px;flex:1;}
+  .test-card ul{margin:0 0 20px;padding-left:20px;font-size:13.5px;color:var(--ms-text);}
+  .test-card ul li{margin-bottom:6px;}
+  .btn{
+    border:none;border-radius:8px;padding:13px 20px;font-size:14.5px;font-weight:600;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+    transition:box-shadow .15s ease;
+  }
+  .btn-primary{
+    background:linear-gradient(90deg,var(--ms-blue),var(--ms-blue-light));color:#fff;
+    box-shadow:0 6px 18px rgba(0,120,212,0.3);width:100%;
+  }
+  .btn-primary:hover{box-shadow:0 8px 22px rgba(0,120,212,0.42);}
+
+  .domain-card{
+    background:var(--ms-card);border:1px solid var(--ms-border);border-radius:10px;
+    box-shadow:var(--shadow);padding:22px 24px;
+  }
+  .domain-card h2{margin:0 0 14px;font-size:16px;color:var(--ms-navy);}
+  table.domain-table{width:100%;border-collapse:collapse;font-size:14px;}
+  table.domain-table th{
+    text-align:left;color:var(--ms-muted);font-size:11px;text-transform:uppercase;
+    letter-spacing:.4px;padding:6px 8px;border-bottom:2px solid var(--ms-border);
+  }
+  table.domain-table td{padding:10px 8px;border-bottom:1px solid var(--ms-border);}
+  table.domain-table td.weight{font-weight:700;color:var(--ms-blue);text-align:right;}
+  table.domain-table tr:last-child td{border-bottom:none;}
+
+  .footer-note{text-align:center;color:var(--ms-muted);font-size:12px;margin-top:36px;}
+
+  @media(max-width:840px){
+    .stat-grid{grid-template-columns:1fr;}
+    .card-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+  <div class="brandbar">
+    <div class="logo"><span>K21 Academy</span><span class="badge">Azure Certification Practice Hub</span></div>
+    <div class="tagline">AI-901: Microsoft Azure AI Fundamentals Mock Tests</div>
+  </div>
+
+  <div class="wrap">
+    <span class="pill">AI-901 Certification Practice Hub</span>
+    <h1>AI-901: Microsoft Azure AI Fundamentals Mock Tests</h1>
+    <p class="subtitle">Practice in a realistic exam environment with timed mock tests, question navigation, and instant feedback. Choose a mock test below and start your AI-901 preparation.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="label">3 Mock Tests</div><div class="value">Structured practice sets</div></div>
+      <div class="stat-card"><div class="label">50 Questions</div><div class="value">Per mock test</div></div>
+      <div class="stat-card"><div class="label">2 Domains</div><div class="value">Aligned to AI-901 skills outline</div></div>
+    </div>
+
+    <h2 class="section-title">Choose your mock test</h2>
+    <p class="section-desc">Each mock test contains 50 unique, non-repeating questions. All three sets cover the same AI-901 exam domains, weighted the same way the real exam is.</p>
+
+    <div class="card-grid">
+      <div class="test-card">
+        <div class="card-top">
+          <h3>Mock Test 1</h3>
+          <span class="badge-tag badge-starter">STARTER</span>
+        </div>
+        <p class="desc">Begin with the first AI-901 simulator and get familiar with the exam flow.</p>
+        <ul>
+          <li>Real exam-style simulator</li>
+          <li>Timer and navigator</li>
+          <li>Instant feedback after submission</li>
+        </ul>
+        <a class="btn btn-primary" href="mock-test-1.html">Start Mock Test 1</a>
+      </div>
+
+      <div class="test-card">
+        <div class="card-top">
+          <h3>Mock Test 2</h3>
+          <span class="badge-tag badge-practice">PRACTICE</span>
+        </div>
+        <p class="desc">Reinforce your knowledge with a second full-length AI-901 practice set.</p>
+        <ul>
+          <li>50 unique questions</li>
+          <li>Timed, proctored-style simulation</li>
+          <li>Domain-wise feedback</li>
+        </ul>
+        <a class="btn btn-primary" href="mock-test-2.html">Start Mock Test 2</a>
+      </div>
+
+      <div class="test-card">
+        <div class="card-top">
+          <h3>Mock Test 3</h3>
+          <span class="badge-tag badge-challenge">CHALLENGE</span>
+        </div>
+        <p class="desc">Use the third mock test as a final readiness check before the exam.</p>
+        <ul>
+          <li>50 unique questions</li>
+          <li>Timed exam simulation</li>
+          <li>Useful for final revision</li>
+        </ul>
+        <a class="btn btn-primary" href="mock-test-3.html">Start Mock Test 3</a>
+      </div>
+    </div>
+
+    <div class="domain-card">
+      <h2>AI-901 Domain Coverage</h2>
+      <table class="domain-table">
+        <tr><th>Domain</th><th>Topic</th><th style="text-align:right;">Weight</th></tr>
+        <tr><td>Domain 1</td><td>Identify AI concepts and capabilities</td><td class="weight">44%</td></tr>
+        <tr><td>Domain 2</td><td>Implement AI solutions by using Microsoft Foundry</td><td class="weight">56%</td></tr>
+      </table>
+    </div>
+
+    <p class="footer-note">All 150 practice questions across the three mock tests are original and written to reflect the AI-901 skills outline. They are not real or leaked exam questions. © 2026 K21 Academy · Azure Certification Practice Hub</p>
+  </div>
+</body>
+</html>
